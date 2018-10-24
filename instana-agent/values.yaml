@@ -1,0 +1,18 @@
+image:
+  name: gcr.io/instana-public/instana-agent:1.0.9
+  pullPolicy: Always
+
+serviceAccount: instana-agent
+
+instana:
+  zone: k8s-cluster
+  leaderElectorPort: 42655
+  agent:
+    key: 
+    name: instana-agent
+    endpoint:
+      host: saas-us-west-2.instana.io
+      port: 443
+
+## Annotations to be added to pods
+podAnnotations: {}

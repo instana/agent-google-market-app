@@ -1,0 +1,10 @@
+apiVersion: v1
+appVersion: "1.0"
+description: Instana Agent for Kubernetes
+name: instana-agent
+version: 1.0
+home: https://www.instana.com/
+icon: https://upload.wikimedia.org/wikipedia/en/thumb/8/88/Instana_logo.svg/440px-Instana_logo.svg.png
+maintainers:
+- email: dusan.susic@gmail.com
+  name: Dusan Susic

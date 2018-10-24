@@ -1,0 +1,79 @@
+applicationApiVersion: v1beta1
+
+properties:
+  name:
+    type: string
+    default: instana-agent
+    x-google-marketplace:
+      type: NAME
+  namespace:
+    type: string
+    default: instana-agent
+    x-google-marketplace:
+      type: NAMESPACE
+  image.name:
+    type: string
+    default: $REGISTRY:$TAG
+    x-google-marketplace:
+      type: IMAGE
+  serviceAccount:
+    type: string
+    title: Instana Agent Service Account
+    x-google-marketplace:
+      type: SERVICE_ACCOUNT
+      serviceAccount: 
+        roles:
+        - type: ClusterRole
+          rulesType: CUSTOM
+          rules:
+          - apiGroups: ["batch"]
+            resources:
+              - "jobs"
+            verbs: ["get", "list", "watch"]
+          - apiGroups: ["extensions"]
+            resources:
+              - "deployments"
+              - "replicasets"
+              - "ingresses"
+            verbs: ["get", "list", "watch"]
+          - apiGroups: [""]
+            resources:
+              - "namespaces"
+              - "events"
+              - "services"
+              - "endpoints"
+              - "nodes"
+              - "pods"
+              - "replicationcontrollers"
+              - "componentstatuses"
+              - "resourcequotas"
+            verbs: ["get", "list", "watch"]
+          - apiGroups: [""]
+            resources:
+              - "endpoints"
+            verbs: ["create", "update"]
+  instana.zone:
+    type: string
+    title: Instana Zone
+    default: kubernetes-cluster
+    description: Name of the cluster that will appear on Instana launch map
+  instana.agent.key:
+    type: string
+    title: Instana Application Key
+    description: Instana agent key, acquire this key from Instana service
+  instana.agent.endpoint.host:
+    type: string
+    title: Instana Service Endpoint
+    default: saas-us-west-2.instana.io
+  instana.agent.endpoint.port:
+    type: string
+    title: Instana Service Port
+    default: "443"
+
+required:
+- name
+- namespace
+- instana.zone
+- instana.agent.key
+- instana.agent.endpoint.host
+- instana.agent.endpoint.port
