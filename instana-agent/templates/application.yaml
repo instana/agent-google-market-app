@@ -65,3 +65,7 @@ spec:
     kind: ConfigMap
   - group: core
     kind: Secret
+  - group: v1
+    kind: ServiceAccount
+  - group: v1
+    kind: Secret
