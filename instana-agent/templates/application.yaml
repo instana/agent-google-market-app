@@ -16,8 +16,6 @@ spec:
         email: dusan.susic@instana.com
       - name: Stefan Staudenmeyer
         email: stefan.staudenmeyer@instana.com
-    owners:
-      - "Instana"
     keywords:
       - "apm"
       - "monitoring"
@@ -57,7 +55,6 @@ spec:
         url: "https://www.instana.com/blog/"
       - description: Contact Support
         url: https://support.instana.com/hc/en-us/requests/new
-      
   selector:
     matchLabels:
       app.kubernetes.io/name: "{{ .Release.Name }}"
@@ -67,4 +64,8 @@ spec:
   - group: core
     kind: ConfigMap
   - group: core
+    kind: Secret
+  - group: v1
+    kind: ServiceAccount
+  - group: v1
     kind: Secret

@@ -13,7 +13,7 @@ properties:
       type: NAMESPACE
   image.name:
     type: string
-    default: $REGISTRY:$TAG
+    default: $REGISTRY/$APP_NAME:$TAG
     x-google-marketplace:
       type: IMAGE
   serviceAccount:
@@ -69,6 +69,40 @@ properties:
     type: string
     title: Instana Service Port
     default: "443"
+  computeResources.requests.memory:
+    type: integer
+    title: Container memory requests in MiB
+    default: 512
+  computeResources.requests.cpu:
+    type: string
+    title: Container cpu requests in cpu cores
+    default: "0.5"
+  computeResources.limits.memory:
+    type: integer
+    title: Container memory limits in MiB
+    default: 512
+  computeResources.limits.cpu:
+    type: string
+    title: Container cpu limits in cpu cores
+    default: "1.5"
+  instana.agent.proxyHost:
+    type: string
+    title: Hostname/address of a proxy
+  instana.agent.proxyPort:
+    type: string
+    title: Port of a proxy
+  instana.agent.proxyProtocol:
+    type: string
+    title: Proxy protocol (Supported proxy types are "http", "socks4", "socks5")
+  instana.agent.proxyUser:
+    type: string
+    title: Username of the proxy auth
+  instana.agent.proxyPassword:
+    type: string
+    title: Password of the proxy auth
+  instana.agent.proxyUseDNS:
+    type: boolean
+    title: Boolean if proxy also does DNS
 
 required:
 - name

@@ -46,6 +46,9 @@ git clone https://github.com/GoogleCloudPlatform/marketplace-k8s-app-tools.git
 cd marketplace-k8s-app-tools/crd
 kubectl apply -f app-crd.yaml
 ```
+or you can apply configuration directly:
+```
+kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/marketplace-k8s-app-tools/master/crd/app-crd.yaml```
 
 # Rules
 
@@ -67,9 +70,17 @@ ClusterRole, ClusterRoleBinding and ServiceAccount are defined in schema.yaml
 ```
 #!/usr/bin/env bash
 export REGISTRY=gcr.io/k8s-brewery
+export TAG=latest
 export APP_NAME=instana-agent
-sudo docker build --tag $REGISTRY/$APP_NAME/deployer .
+
+sudo docker build \
+--build-arg REGISTRY=$REGISTRY \
+--build-arg APP_NAME=$APP_NAME \
+--build-arg TAG=$TAG \
+--tag $REGISTRY/$APP_NAME/deployer .
+
 sudo docker push $REGISTRY/$APP_NAME/deployer
+
 mpdev /scripts/install \
 --deployer=$REGISTRY/$APP_NAME/deployer \
 --parameters='{
