@@ -48,7 +48,8 @@ kubectl apply -f app-crd.yaml
 ```
 or you can apply configuration directly:
 ```
-kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/marketplace-k8s-app-tools/master/crd/app-crd.yaml```
+kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/marketplace-k8s-app-tools/master/crd/app-crd.yaml
+```
 
 # Rules
 
