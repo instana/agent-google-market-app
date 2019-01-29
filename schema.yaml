@@ -21,7 +21,7 @@ properties:
     title: Instana Agent Service Account
     x-google-marketplace:
       type: SERVICE_ACCOUNT
-      serviceAccount: 
+      serviceAccount:
         roles:
         - type: ClusterRole
           rulesType: CUSTOM
@@ -88,22 +88,27 @@ properties:
   instana.agent.proxyHost:
     type: string
     title: Hostname/address of a proxy
+    default: ""
   instana.agent.proxyPort:
     type: string
     title: Port of a proxy
+    default: ""
   instana.agent.proxyProtocol:
     type: string
     title: Proxy protocol (Supported proxy types are "http", "socks4", "socks5")
+    default: ""
   instana.agent.proxyUser:
     type: string
     title: Username of the proxy auth
+    default: ""
   instana.agent.proxyPassword:
     type: string
     title: Password of the proxy auth
+    default: ""
   instana.agent.proxyUseDNS:
     type: boolean
     title: Boolean if proxy also does DNS
-
+    default: false
 required:
 - name
 - namespace
@@ -111,3 +116,13 @@ required:
 - instana.agent.key
 - instana.agent.endpoint.host
 - instana.agent.endpoint.port
+- computeResources.requests.memory
+- computeResources.requests.cpu
+- computeResources.limits.memory
+- computeResources.limits.cpu
+- instana.agent.proxyHost
+- instana.agent.proxyPort
+- instana.agent.proxyProtocol
+- instana.agent.proxyUser
+- instana.agent.proxyPassword
+- instana.agent.proxyUseDNS
