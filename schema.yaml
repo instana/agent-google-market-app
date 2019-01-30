@@ -36,6 +36,11 @@ properties:
               - "replicasets"
               - "ingresses"
             verbs: ["get", "list", "watch"]
+          - apiGroups: ["apps"]
+            resources:
+              - "deployments"
+              - "replicasets"
+            verbs: ["get", "list", "watch"]
           - apiGroups: [""]
             resources:
               - "namespaces"
@@ -51,7 +56,7 @@ properties:
           - apiGroups: [""]
             resources:
               - "endpoints"
-            verbs: ["create", "update"]
+            verbs: ["create", "update", "patch"]
   instana.zone:
     type: string
     title: Instana Zone
