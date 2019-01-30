@@ -126,3 +126,10 @@ required:
 - instana.agent.proxyUser
 - instana.agent.proxyPassword
 - instana.agent.proxyUseDNS
+x-google-marketplace:
+  clusterConstraints:
+    resources:
+    - replicas: 1
+      requests:
+        cpu: 500m
+        memory: 512Mi
