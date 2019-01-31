@@ -2,10 +2,8 @@ image:
   name: gcr.io/instana-public/instana-agent:1.0.9
   pullPolicy: Always
 
-serviceAccount: instana-agent
-
 instana:
-  zone: k8s-cluster
+  zone: kubernetes-cluster
   leaderElectorPort: 42655
   agent:
     key: 

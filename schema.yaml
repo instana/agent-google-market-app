@@ -21,7 +21,7 @@ properties:
     title: Instana Agent Service Account
     x-google-marketplace:
       type: SERVICE_ACCOUNT
-      serviceAccount: 
+      serviceAccount:
         roles:
         - type: ClusterRole
           rulesType: CUSTOM
@@ -35,6 +35,11 @@ properties:
               - "deployments"
               - "replicasets"
               - "ingresses"
+            verbs: ["get", "list", "watch"]
+          - apiGroups: ["apps"]
+            resources:
+              - "deployments"
+              - "replicasets"
             verbs: ["get", "list", "watch"]
           - apiGroups: [""]
             resources:
@@ -51,7 +56,7 @@ properties:
           - apiGroups: [""]
             resources:
               - "endpoints"
-            verbs: ["create", "update"]
+            verbs: ["create", "update", "patch"]
   instana.zone:
     type: string
     title: Instana Zone
@@ -85,25 +90,6 @@ properties:
     type: string
     title: Container cpu limits in cpu cores
     default: "1.5"
-  instana.agent.proxyHost:
-    type: string
-    title: Hostname/address of a proxy
-  instana.agent.proxyPort:
-    type: string
-    title: Port of a proxy
-  instana.agent.proxyProtocol:
-    type: string
-    title: Proxy protocol (Supported proxy types are "http", "socks4", "socks5")
-  instana.agent.proxyUser:
-    type: string
-    title: Username of the proxy auth
-  instana.agent.proxyPassword:
-    type: string
-    title: Password of the proxy auth
-  instana.agent.proxyUseDNS:
-    type: boolean
-    title: Boolean if proxy also does DNS
-
 required:
 - name
 - namespace
@@ -111,3 +97,14 @@ required:
 - instana.agent.key
 - instana.agent.endpoint.host
 - instana.agent.endpoint.port
+- computeResources.requests.memory
+- computeResources.requests.cpu
+- computeResources.limits.memory
+- computeResources.limits.cpu
+x-google-marketplace:
+  clusterConstraints:
+    resources:
+    - replicas: 1
+      requests:
+        cpu: 500m
+        memory: 512Mi
