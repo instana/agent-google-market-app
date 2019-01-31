@@ -90,30 +90,6 @@ properties:
     type: string
     title: Container cpu limits in cpu cores
     default: "1.5"
-  instana.agent.proxyHost:
-    type: string
-    title: Hostname/address of a proxy
-    default: ""
-  instana.agent.proxyPort:
-    type: string
-    title: Port of a proxy
-    default: ""
-  instana.agent.proxyProtocol:
-    type: string
-    title: Proxy protocol (Supported proxy types are "http", "socks4", "socks5")
-    default: ""
-  instana.agent.proxyUser:
-    type: string
-    title: Username of the proxy auth
-    default: ""
-  instana.agent.proxyPassword:
-    type: string
-    title: Password of the proxy auth
-    default: ""
-  instana.agent.proxyUseDNS:
-    type: boolean
-    title: Boolean if proxy also does DNS
-    default: false
 required:
 - name
 - namespace
@@ -125,12 +101,6 @@ required:
 - computeResources.requests.cpu
 - computeResources.limits.memory
 - computeResources.limits.cpu
-- instana.agent.proxyHost
-- instana.agent.proxyPort
-- instana.agent.proxyProtocol
-- instana.agent.proxyUser
-- instana.agent.proxyPassword
-- instana.agent.proxyUseDNS
 x-google-marketplace:
   clusterConstraints:
     resources:
