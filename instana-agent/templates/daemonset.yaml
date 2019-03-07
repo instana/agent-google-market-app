@@ -38,6 +38,10 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.instana.agent.name }}-secret
                   key: key
+            - name: INSTANA_AGENT_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             {{- if .Values.instana.agent.proxyHost }}
             - name: INSTANA_AGENT_PROXY_HOST
               value: {{ .Values.instana.agent.proxyHost | quote }}
@@ -95,7 +99,12 @@ spec:
               cpu: {{ .Values.computeResources.limits.cpu }}
         - name: {{ .Values.instana.agent.name }}-leader-elector
           image: gcr.io/google-containers/leader-elector:0.5
-          args: ["--election=instana", "--http=0.0.0.0:{{ .Values.instana.leaderElectorPort }}"]
+          env:
+            - name: INSTANA_AGENT_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          args: ["--election=instana", "--http=0.0.0.0:{{ .Values.instana.leaderElectorPort }}", "--id=$(INSTANA_AGENT_POD_NAME)"]
           resources:
             requests:
               cpu: 0.1
