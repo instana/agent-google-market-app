@@ -61,10 +61,10 @@ ClusterRole, ClusterRoleBinding and ServiceAccount are defined in schema.yaml
 ```
 - name
 - namespace
-- instana.zone | default "k8s-cluster"
-- instana.agent.key
-- instana.agent.endpoint.host | default "saas-us-west-2.instana.io"
-- instana.agent.endpoint.port | default "443"
+- zone.name | default "k8s-cluster"
+- agent.key
+- agent.endpointHost | default "saas-us-west-2.instana.io"
+- agent.endpointPort | default "443"
 ```
 
 # RUN
@@ -87,8 +87,8 @@ mpdev /scripts/install \
 --parameters='{
 "name": "instana-agent",
 "namespace": "instana-agent",
-"instana.zone": "k8s-testing",
-"instana.agent.key": "key",
-"instana.agent.endpoint.host": "saas-eu-west-1.instana.io",
-"instana.agent.endpoint.port": "443"}'
+"zone.name": "k8s-testing",
+"agent.key": "key",
+"agent.endpointHost": "saas-eu-west-1.instana.io",
+"agent.endpointPort": "443"}'
 ```
