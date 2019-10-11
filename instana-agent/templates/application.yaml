@@ -10,12 +10,10 @@ metadata:
 spec:
   descriptor:
     type: instana-agent
-    version: '1.0.9'
+    version: '1.0.28'
     maintainers:
-      - name: Dusan Susic
-        email: dusan.susic@instana.com
-      - name: Stefan Staudenmeyer
-        email: stefan.staudenmeyer@instana.com
+      - name: Instana
+        url: https://www.instana.com
     keywords:
       - "apm"
       - "monitoring"
@@ -31,7 +29,7 @@ spec:
       # Next Step
       To get started monitoring your kubernetes cluster and application, get the license key from your Instana environment.
       You can navigate to your Management Portal in the product and check the Agent Key tab.
-      Yo can get a new account from our website (we’ll send you the agent key via email):
+      You can get a new account from our website (we’ll send you the agent key via email):
       https://www.instana.com/google-gke-trial
 
       # Term of Service
@@ -59,12 +57,10 @@ spec:
     matchLabels:
       app.kubernetes.io/name: "{{ .Release.Name }}"
   componentKinds:
-  - group: apps
+  - group: apps/v1
     kind: DaemonSet
-  - group: core
+  - group: v1
     kind: ConfigMap
-  - group: core
-    kind: Secret
   - group: v1
     kind: ServiceAccount
   - group: v1

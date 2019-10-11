@@ -1,6 +1,39 @@
 applicationApiVersion: v1beta1
 
 properties:
+  agent.endpointHost:
+    type: string
+    title: Instana Service Endpoint
+    default: saas-us-west-2.instana.io
+  agent.endpointPort:
+    type: string
+    title: Instana Service Port
+    default: "443"
+  agent.image.name:
+    type: string
+    default: $REGISTRY/$APP_NAME:$TAG
+    x-google-marketplace:
+      type: IMAGE
+  agent.key:
+    type: string
+    title: Instana Agent Key
+    description: Instana Agent key, acquire this key from Instana service
+  computeResources.limits.cpu:
+    type: string
+    title: Container cpu limits in cpu cores
+    default: "1.5"
+  computeResources.limits.memory:
+    type: integer
+    title: Container memory limits in MiB
+    default: 512
+  computeResources.requests.cpu:
+    type: string
+    title: Container cpu requests in cpu cores
+    default: "0.5"
+  computeResources.requests.memory:
+    type: integer
+    title: Container memory requests in MiB
+    default: 512
   name:
     type: string
     default: instana-agent
@@ -11,11 +44,6 @@ properties:
     default: instana-agent
     x-google-marketplace:
       type: NAMESPACE
-  image.name:
-    type: string
-    default: $REGISTRY/$APP_NAME:$TAG
-    x-google-marketplace:
-      type: IMAGE
   serviceAccount:
     type: string
     title: Instana Agent Service Account
@@ -26,6 +54,10 @@ properties:
         - type: ClusterRole
           rulesType: CUSTOM
           rules:
+          - nonResourceURLs:
+              - "/version"
+              - "/healthz"
+            verbs: ["get"]
           - apiGroups: ["batch"]
             resources:
               - "jobs"
@@ -57,50 +89,23 @@ properties:
             resources:
               - "endpoints"
             verbs: ["create", "update", "patch"]
-  instana.zone:
+  zone.name:
     type: string
-    title: Instana Zone
-    default: kubernetes-cluster
+    title: Instana Zone Name
     description: Name of the cluster that will appear on Instana launch map
-  instana.agent.key:
-    type: string
-    title: Instana Application Key
-    description: Instana agent key, acquire this key from Instana service
-  instana.agent.endpoint.host:
-    type: string
-    title: Instana Service Endpoint
-    default: saas-us-west-2.instana.io
-  instana.agent.endpoint.port:
-    type: string
-    title: Instana Service Port
-    default: "443"
-  computeResources.requests.memory:
-    type: integer
-    title: Container memory requests in MiB
-    default: 512
-  computeResources.requests.cpu:
-    type: string
-    title: Container cpu requests in cpu cores
-    default: "0.5"
-  computeResources.limits.memory:
-    type: integer
-    title: Container memory limits in MiB
-    default: 512
-  computeResources.limits.cpu:
-    type: string
-    title: Container cpu limits in cpu cores
-    default: "1.5"
 required:
+- agent.endpointHost
+- agent.endpointPort
+- agent.image.name
+- agent.key
+- computeResources.limits.cpu
+- computeResources.limits.memory
+- computeResources.requests.cpu
+- computeResources.requests.memory
 - name
 - namespace
-- instana.zone
-- instana.agent.key
-- instana.agent.endpoint.host
-- instana.agent.endpoint.port
-- computeResources.requests.memory
-- computeResources.requests.cpu
-- computeResources.limits.memory
-- computeResources.limits.cpu
+- serviceAccount
+- zone.name
 x-google-marketplace:
   clusterConstraints:
     resources:
