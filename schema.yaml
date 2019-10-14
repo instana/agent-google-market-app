@@ -104,7 +104,6 @@ required:
 - agent.pod.requests.memory
 - name
 - namespace
-- serviceAccount
 - zone.name
 x-google-marketplace:
   clusterConstraints:
