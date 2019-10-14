@@ -25,7 +25,7 @@ spec:
       hostPID: true
       containers:
         - name: {{ template "instana-agent.name" . }}
-          image: "{{ .Values.agent.image.name }}:{{ .Values.agent.image.tag }}"
+          image: "{{ .Values.agent.image.name }}"
           imagePullPolicy: {{ .Values.agent.image.pullPolicy }}
           env:
             - name: INSTANA_AGENT_LEADER_ELECTOR_PORT
@@ -87,7 +87,7 @@ spec:
               value: {{ .Values.agent.redactKubernetesSecrets | quote }}
             {{- end }}
             - name: JAVA_OPTS
-              value: "-Xmx{{ div (default 512 .Values.computeResources.requests.memory) 3 }}M -XX:+ExitOnOutOfMemoryError"
+              value: "-Xmx{{ div (default 512 .Values.agent.pod.requests.memory) 3 }}M -XX:+ExitOnOutOfMemoryError"
             - name: INSTANA_AGENT_POD_NAME
               valueFrom:
                 fieldRef:
@@ -122,11 +122,11 @@ spec:
             periodSeconds: 5
           resources:
             requests:
-              memory: "{{ default 512 .Values.computeResources.requests.memory }}Mi"
-              cpu: {{ default 0.5 .Values.computeResources.requests.cpu }}
+              memory: "{{ default 512 .Values.agent.pod.requests.memory }}Mi"
+              cpu: {{ default 0.5 .Values.agent.pod.requests.cpu }}
             limits:
-              memory: "{{ default 512 .Values.computeResources.limits.memory }}Mi"
-              cpu: {{ default 1.5 .Values.computeResources.limits.cpu }}
+              memory: "{{ default 512 .Values.agent.pod.limits.memory }}Mi"
+              cpu: {{ default 1.5 .Values.agent.pod.limits.cpu }}
           ports:
             - containerPort: 42699
         - name: {{ template "instana-agent.name" . }}-leader-elector
