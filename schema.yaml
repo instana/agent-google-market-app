@@ -18,21 +18,21 @@ properties:
     type: string
     title: Instana Agent Key
     description: Instana Agent key, acquire this key from Instana service
-  computeResources.limits.cpu:
+  agent.pod.limits.cpu:
     type: string
-    title: Container cpu limits in cpu cores
+    title: CPU units allocation limits for the agent pods
     default: "1.5"
-  computeResources.limits.memory:
+  agent.pod.limits.memory:
     type: integer
-    title: Container memory limits in MiB
+    title: Memory allocation limits in MiB for the agent pods
     default: 512
-  computeResources.requests.cpu:
+  agent.pod.requests.cpu:
     type: string
-    title: Container cpu requests in cpu cores
+    title: Requested CPU units allocation for the agent pods
     default: "0.5"
-  computeResources.requests.memory:
+  agent.pod.requests.memory:
     type: integer
-    title: Container memory requests in MiB
+    title: Requested memory allocation in MiB for the agent pods
     default: 512
   name:
     type: string
@@ -98,10 +98,10 @@ required:
 - agent.endpointPort
 - agent.image.name
 - agent.key
-- computeResources.limits.cpu
-- computeResources.limits.memory
-- computeResources.requests.cpu
-- computeResources.requests.memory
+- agent.pod.limits.cpu
+- agent.pod.limits.memory
+- agent.pod.requests.cpu
+- agent.pod.requests.memory
 - name
 - namespace
 - serviceAccount
