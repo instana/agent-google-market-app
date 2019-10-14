@@ -1,13 +1,16 @@
 applicationApiVersion: v1beta1
 
 properties:
+  agent.downloadKey:
+    type: string
+    title: Instana Download Key (Optional)
   agent.endpointHost:
     type: string
-    title: Instana Service Endpoint
+    title: Instana Agent backend endpoint host
     default: saas-us-west-2.instana.io
   agent.endpointPort:
     type: string
-    title: Instana Service Port
+    title: Instana Agent backend endpoint port
     default: "443"
   agent.image.name:
     type: string
@@ -17,23 +20,77 @@ properties:
   agent.key:
     type: string
     title: Instana Agent Key
-    description: Instana Agent key, acquire this key from Instana service
+    description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
+  agent.leaderElectorPort:
+    type: integer
+    title: Instana leader elector sidecar port
+    default: 42655
+  agent.listenAddress:
+    type: string
+    title: List of addresses to listen on (Optional)
+    description: List of addresses to listen on, or "*" for all interfaces
+  agent.mode:
+    type: string
+    title: Agent mode
+    description: Supported values are APM, INFRASTRUCTURE, AWS
+    default: APM
+    enum:
+    - "APM"
+    - "INFRASTRUCTURE"
+    - "AWS"
   agent.pod.limits.cpu:
     type: string
-    title: CPU units allocation limits for the agent pods
+    title: Container CPU limits in CPU cores
     default: "1.5"
   agent.pod.limits.memory:
     type: integer
-    title: Memory allocation limits in MiB for the agent pods
+    title: Container memory limits in MiB
     default: 512
+  agent.pod.proxyHost:
+    type: string
+    title: Hostname/address of a proxy (Optional)
+    description: Sets the INSTANA_AGENT_PROXY_HOST environment variable
+  agent.pod.proxyPort:
+    type: string
+    title: Port of a proxy (Optional)
+    description: Sets the INSTANA_AGENT_PROXY_PORT environment variable
+  agent.pod.proxyProtocol:
+    type: string
+    title: Proxy protocol (Optional)
+    description: Sets the INSTANA_AGENT_PROXY_PROTOCOL environment variable. Supported proxy types are http, socks4, socks5
+    enum:
+    - "http"
+    - "socks4"
+    - "socks5"
+  agent.pod.proxyUser:
+    type: string
+    title: Username of the proxy auth (Optional)
+    description: Sets the INSTANA_AGENT_PROXY_USER environment variable
+  agent.pod.proxyPassword:
+    type: string
+    title: Password of the proxy auth (Optional)
+    description: Sets the INSTANA_AGENT_PROXY_PASSWORD environment variable
+  agent.pod.proxyUserDNS:
+    type: boolean
+    title: Boolean if proxy also does DNS (Optional)
+    description: Sets the INSTANA_AGENT_PROXY_USE_DNS environment variable
   agent.pod.requests.cpu:
     type: string
-    title: Requested CPU units allocation for the agent pods
+    title: Container CPU requests in CPU cores
     default: "0.5"
   agent.pod.requests.memory:
     type: integer
-    title: Requested memory allocation in MiB for the agent pods
+    title: Container memory requests in MiB
     default: 512
+  agent.redactKubernetesSecrets:
+    type: boolean
+    title: Enable additional secrets redaction for selected Kubernetes resources
+    description: See https://docs.instana.io/quick_start/agent_setup/container/kubernetes/#secrets for more details
+    default: false
+  cluster.name:
+    type: string
+    title: Display name of the monitored cluster (Optional)
+    description: The optional name that will be assigned to this cluster in Instana. See https://github.com/helm/charts/tree/master/stable/instana-agent#installing-the-chart for more details
   name:
     type: string
     default: instana-agent
@@ -92,7 +149,7 @@ properties:
   zone.name:
     type: string
     title: Instana Zone Name
-    description: Name of the cluster that will appear on Instana launch map
+    description: Custom zone that detected technologies will be assigned to
 required:
 - agent.endpointHost
 - agent.endpointPort
