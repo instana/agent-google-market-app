@@ -4,6 +4,8 @@ properties:
   agent.downloadKey:
     type: string
     title: Instana Download Key (Optional)
+    x-google-marketplace:
+      type: MASKED_FIELD
   agent.endpointHost:
     type: string
     title: Instana Agent backend endpoint host
@@ -21,6 +23,8 @@ properties:
     type: string
     title: Instana Agent Key
     description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
+    x-google-marketplace:
+      type: MASKED_FIELD
   agent.leaderElectorPort:
     type: integer
     title: Instana leader elector sidecar port
