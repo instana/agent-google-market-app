@@ -70,7 +70,7 @@ ClusterRole, ClusterRoleBinding and ServiceAccount are defined in schema.yaml
 # RUN
 ```
 #!/usr/bin/env bash
-export REGISTRY=gcr.io/k8s-brewery
+export REGISTRY=gcr.io/instana-public
 export TAG=latest
 export APP_NAME=instana-agent
 
