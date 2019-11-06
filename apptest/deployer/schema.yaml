@@ -1,0 +1,12 @@
+properties:
+  agent.image.name:
+    type: string
+    default: $REGISTRY/$APP_NAME:$TAG
+    x-google-marketplace:
+      type: IMAGE
+  agent.key:
+    type: string
+    title: Instana Agent Key
+    description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
+    x-google-marketplace:
+      type: MASKED_FIELD

@@ -3,7 +3,7 @@ FROM launcher.gcr.io/google/debian9 AS build
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gettext
 
-ADD instana-agent /tmp/chart
+ADD chart/instana-agent /tmp/chart
 
 RUN cd /tmp && tar -czvf /tmp/instana-agent.tar.gz chart
 

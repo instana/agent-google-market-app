@@ -1,0 +1,2 @@
+agent.image.name: gcr.io/instana-public/instana-agent:latest
+agent.key: dummyAgentKey
