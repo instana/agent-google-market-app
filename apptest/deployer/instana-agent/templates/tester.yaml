@@ -3,7 +3,8 @@ kind: Pod
 metadata:
   name: "{{ .Release.Name }}-tester"
   labels:
-    app.kubernetes.io/name: "{{ .Release.Name }}"
+    app.kubernetes.io/name: {{ include "instana-agent.name" . }}
+    app.kubernetes.io/instance: "{{ .Release.Name }}"
   annotations:
     marketplace.cloud.google.com/verification: test
 spec:
