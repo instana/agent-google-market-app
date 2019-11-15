@@ -4,8 +4,6 @@ properties:
   agent.downloadKey:
     type: string
     title: Instana Download Key (Optional)
-    x-google-marketplace:
-      type: MASKED_FIELD
   agent.endpointHost:
     type: string
     title: Instana Agent backend endpoint host
@@ -23,8 +21,6 @@ properties:
     type: string
     title: Instana Agent Key
     description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
-    x-google-marketplace:
-      type: MASKED_FIELD
   agent.leaderElectorPort:
     type: integer
     title: Instana leader elector sidecar port
@@ -33,15 +29,6 @@ properties:
     type: string
     title: List of addresses to listen on (Optional)
     description: List of addresses to listen on, or "*" for all interfaces
-  agent.mode:
-    type: string
-    title: Agent mode
-    description: Supported values are APM, INFRASTRUCTURE, AWS
-    default: APM
-    enum:
-    - "APM"
-    - "INFRASTRUCTURE"
-    - "AWS"
   agent.pod.limits.cpu:
     type: string
     title: Container CPU limits in CPU cores
