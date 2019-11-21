@@ -121,7 +121,7 @@ properties:
               - "deployments"
               - "replicasets"
             verbs: ["get", "list", "watch"]
-          - apiGroups: [""]
+          - apiGroups: ["*"]
             resources:
               - "namespaces"
               - "events"
@@ -133,7 +133,7 @@ properties:
               - "componentstatuses"
               - "resourcequotas"
             verbs: ["get", "list", "watch"]
-          - apiGroups: [""]
+          - apiGroups: ["*"]
             resources:
               - "endpoints"
             verbs: ["create", "update", "patch"]
