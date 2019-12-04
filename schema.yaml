@@ -102,10 +102,6 @@ properties:
         - type: ClusterRole
           rulesType: CUSTOM
           rules:
-          - nonResourceURLs:
-              - "/version"
-              - "/healthz"
-            verbs: ["get"]
           - apiGroups: ["batch"]
             resources:
               - "jobs"
