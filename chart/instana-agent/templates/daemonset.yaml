@@ -116,6 +116,7 @@ spec:
             {{- end }}
           livenessProbe:
             httpGet:
+              host: 127.0.0.1
               path: /status
               port: 42699
             initialDelaySeconds: 75
@@ -147,6 +148,7 @@ spec:
               memory: 64Mi
           livenessProbe:
             httpGet:
+              host: 127.0.0.1
               path: /status
               port: 42699
             initialDelaySeconds: 75
