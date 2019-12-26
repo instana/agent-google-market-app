@@ -82,4 +82,4 @@ mpdev /scripts/install \
 "agent.endpointPort": "443"}'
 ```
 
-To push your changes to GCR, see `deploy.sh`
+To push your changes to GCR, see [`deploy.sh`](deploy.sh)
