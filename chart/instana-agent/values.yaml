@@ -28,7 +28,7 @@ agent:
     # agent.image.tag is the tag name of the agent container image.
     tag: latest
     # agent.image.pullPolicy specifies when to pull the image container.
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
   pod:
     # agent.pod.annotations are additional annotations to be added to the agent pods.
