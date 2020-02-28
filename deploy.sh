@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 export REGISTRY=gcr.io/instana-public
-export DEPLOYER_TAG=1.6
+export DEPLOYER_TAG=1.7
 export TAG=latest
 export APP_NAME=instana-agent
 
