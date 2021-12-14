@@ -17,34 +17,31 @@ gcloud components install docker-credential-gcr
 docker-credential-gcr configure-docker
 ```
 
-# Rules
+## Rules
 
-We are creating an app with building blocks from our existing helm chart. There are rules different rules for Helm chart and Google market app. While helm recommends RBAC and SA, that is forbidden with Google Marketplace App. ClusterRole, ClusterRoleBinding and ServiceAccount are defined in `schema.yaml`.
+We are creating an app with building blocks from our existing helm chart. 
+There are rules different rules for Helm chart and Google market app. 
+While helm recommends RBAC and SA, that is forbidden with Google Marketplace App. 
+ClusterRole, ClusterRoleBinding and ServiceAccount are defined in `schema.yaml`.
 
-# Required params for Instana Agent
+## Required params for Instana Agent
 
 ```
 - name
 - namespace
 - zone.name | default "k8s-cluster"
 - agent.key
-- agent.endpointHost | default "saas-us-west-2.instana.io"
+- agent.endpointHost | default "ingress-red-saas.instana.io"
 - agent.endpointPort | default "443"
 ```
 
-# RUN
+## Test & Upload
 
-To test your changes:
-```
-mpdev /scripts/install \
---deployer=$REGISTRY/$APP_NAME/deployer \
---parameters='{
-"name": "instana-agent",
-"namespace": "instana-agent",
-"zone.name": "k8s-testing",
-"agent.key": "key",
-"agent.endpointHost": "saas-eu-west-1.instana.io",
-"agent.endpointPort": "443"}'
-```
+This will upload deployer and tester image to the registry.
+The GCP Marketplace will copy these images to the Marketplace registry after a new App is releases.
 
-To push your changes to GCR, see [`deploy.sh`](deploy.sh)
+To test your changes, run:
+
+```
+./verify.sh
+```

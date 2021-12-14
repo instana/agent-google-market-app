@@ -1,26 +1,69 @@
-applicationApiVersion: v1beta1
+x-google-marketplace:
+  schemaVersion: v2
+  applicationApiVersion: v1beta1
+  # The published version is required and MUST match the tag
+  # of the deployer image
+  publishedVersion: '1.8.0'
+  publishedVersionMetadata:
+    releaseNote: >-
+      - Migrate v1 Schema to v2
+      - Update Chart to use the latest release
+  images:
+    '':
+      properties:
+        agent.image.name:
+          type: REPO_WITHOUT_REGISTRY
+        agent.image.tag:
+          type: TAG
+    leaderElector:
+      properties:
+        leaderElector.image.name:
+          type: REPO_WITHOUT_REGISTRY
+        leaderElector.image.tag:
+          type: TAG
+
+  clusterConstraints:
+    resources:
+    - replicas: 1
+      requests:
+        cpu: 500m
+        memory: 512Mi
+
+required:
+  - agent.endpointHost
+  - agent.key
+  - agent.endpointPort
+  - name
+  - namespace
 
 properties:
+  name:
+    type: string
+    x-google-marketplace:
+      type: NAME
+  namespace:
+    type: string
+    x-google-marketplace:
+      type: NAMESPACE
   agent.downloadKey:
     type: string
     title: Instana Download Key (Optional)
   agent.endpointHost:
     type: string
     title: Instana Agent backend endpoint host
-    default: saas-us-west-2.instana.io
+    default: ingress-red-saas.instana.io
   agent.endpointPort:
     type: string
     title: Instana Agent backend endpoint port
     default: "443"
-  agent.image.name:
-    type: string
-    default: $REGISTRY/$APP_NAME:$TAG
-    x-google-marketplace:
-      type: IMAGE
   agent.key:
     type: string
     title: Instana Agent Key
     description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
+  agent.tls.secretName:
+    type: string
+    title: Name of the secret of type kubernetes.io/tls (Optional)
+    description: "In order to enable TLS, a secret of type kubernetes.io/tls must be specified."
   agent.leaderElectorPort:
     type: integer
     title: Instana leader elector sidecar port
@@ -36,7 +79,7 @@ properties:
   agent.pod.limits.memory:
     type: integer
     title: Container memory limits in MiB
-    default: 512
+    default: 768
   agent.pod.proxyHost:
     type: string
     title: Hostname/address of a proxy (Optional)
@@ -50,9 +93,9 @@ properties:
     title: Proxy protocol (Optional)
     description: Sets the INSTANA_AGENT_PROXY_PROTOCOL environment variable. Supported proxy types are http, socks4, socks5
     enum:
-    - "http"
-    - "socks4"
-    - "socks5"
+      - "http"
+      - "socks4"
+      - "socks5"
   agent.pod.proxyUser:
     type: string
     title: Username of the proxy auth (Optional)
@@ -82,77 +125,62 @@ properties:
     type: string
     title: Display name of the monitored cluster (Optional)
     description: The optional name that will be assigned to this cluster in Instana. See https://github.com/helm/charts/tree/master/stable/instana-agent#installing-the-chart for more details
-  name:
-    type: string
-    default: instana-agent
-    x-google-marketplace:
-      type: NAME
-  namespace:
-    type: string
-    default: instana-agent
-    x-google-marketplace:
-      type: NAMESPACE
-  serviceAccount:
-    type: string
-    title: Instana Agent Service Account
-    x-google-marketplace:
-      type: SERVICE_ACCOUNT
-      serviceAccount:
-        roles:
-        - type: ClusterRole
-          rulesType: CUSTOM
-          rules:
-          - apiGroups: ["batch"]
-            resources:
-              - "jobs"
-            verbs: ["get", "list", "watch"]
-          - apiGroups: ["extensions"]
-            resources:
-              - "deployments"
-              - "replicasets"
-              - "ingresses"
-            verbs: ["get", "list", "watch"]
-          - apiGroups: ["apps"]
-            resources:
-              - "deployments"
-              - "replicasets"
-            verbs: ["get", "list", "watch"]
-          - apiGroups: ["*"]
-            resources:
-              - "namespaces"
-              - "events"
-              - "services"
-              - "endpoints"
-              - "nodes"
-              - "pods"
-              - "replicationcontrollers"
-              - "componentstatuses"
-              - "resourcequotas"
-            verbs: ["get", "list", "watch"]
-          - apiGroups: ["*"]
-            resources:
-              - "endpoints"
-            verbs: ["create", "update", "patch"]
   zone.name:
     type: string
     title: Instana Zone Name
     description: Custom zone that detected technologies will be assigned to
-required:
-- agent.endpointHost
-- agent.endpointPort
-- agent.image.name
-- agent.key
-- agent.pod.limits.cpu
-- agent.pod.limits.memory
-- agent.pod.requests.cpu
-- agent.pod.requests.memory
-- name
-- namespace
-- zone.name
-x-google-marketplace:
-  clusterConstraints:
-    resources:
-    - replicas: 1
-      requests:
-        cpu: 500m
-        memory: 512Mi
+  serviceAccountMP:
+    type: string
+    title: Cluster Admin Service Account
+    description: >-
+      Name of a service account in the target namespace.
+      These permissions are needed for the Instana Agent
+      to monitor Kubernetes infrastructure
+    x-google-marketplace:
+      type: SERVICE_ACCOUNT
+      serviceAccount:
+        description: Service account used by Instana Agent
+        roles:
+          - type: ClusterRole
+            rulesType: CUSTOM
+            rules:
+              - apiGroups: ["batch"]
+                resources:
+                  - "jobs"
+                  - "cronjobs"
+                verbs: ["get", "list", "watch"]
+              - apiGroups: ["extensions"]
+                resources:
+                  - "deployments"
+                  - "replicasets"
+                  - "ingresses"
+                verbs: ["get", "list", "watch"]
+              - apiGroups: ["apps"]
+                resources:
+                  - "deployments"
+                  - "replicasets"
+                  - "daemonsets"
+                  - "statefulsets"
+                verbs: ["get", "list", "watch"]
+              - apiGroups: [""]
+                resources:
+                  - "namespaces"
+                  - "events"
+                  - "services"
+                  - "endpoints"
+                  - "nodes"
+                  - "pods"
+                  - "replicationcontrollers"
+                  - "componentstatuses"
+                  - "resourcequotas"
+                  - "persistentvolumes"
+                  - "persistentvolumeclaims"
+                verbs: ["get", "list", "watch"]
+              - apiGroups: [""]
+                resources:
+                  - "endpoints"
+                verbs: ["create", "update", "patch"]
+              - apiGroups: ["networking.k8s.io"]
+                resources:
+                  - "ingresses"
+                verbs: ["get", "list", "watch"]
