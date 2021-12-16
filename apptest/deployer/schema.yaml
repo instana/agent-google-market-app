@@ -7,6 +7,6 @@ properties:
     default: "test-zone"
   testerImage:
     type: string
-    default: $REGISTRY/$APP_NAME/tester:$DEPLOYER_TAG
+    default: $REGISTRY/$APP_NAME/tester:$TAG
     x-google-property:
       type: IMAGE

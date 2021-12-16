@@ -1,9 +1,7 @@
 x-google-marketplace:
   schemaVersion: v2
   applicationApiVersion: v1beta1
-  # The published version is required and MUST match the tag
-  # of the deployer image
-  publishedVersion: '1.8.0'
+  publishedVersion: "$TAG"
   publishedVersionMetadata:
     releaseNote: >-
       - Migrate v1 Schema to v2
@@ -35,10 +33,12 @@ required:
 properties:
   name:
     type: string
+    default: "$APP_NAME"
     x-google-marketplace:
       type: NAME
   namespace:
     type: string
+    default: "$APP_NAME"
     x-google-marketplace:
       type: NAMESPACE
   agent.downloadKey:

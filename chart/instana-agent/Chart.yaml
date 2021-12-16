@@ -12,20 +12,10 @@ icon: https://agents.instana.io/helm/stan-logo-2020.png
 maintainers:
 - email: henning.treu@ibm.com
   name: htreu
-- email: jon.brisbin@instana.com
-  name: jbrisbin
-- email: william.james@instana.com
-  name: wiggzz
-- email: jeroen.soeters@instana.com
-  name: JeroenSoeters
-- email: fabian.staeber@instana.com
-  name: fstab
-- email: miel.donkers@instana.com
+- email: m.donkers@ibm.com
   name: mdonkers
-- email: dahlia.bock@instana.com
-  name: dlbock
-- email: nathan.fisher@instana.com
-  name: nfisher
+- email: torsten.kohn@ibm.com
+  name: tkohn
 name: instana-agent
 sources:
 - https://github.com/instana/instana-agent-docker

@@ -15,7 +15,6 @@ ADD schema.yaml /tmp/schema.yaml
 ARG REGISTRY
 ARG APP_NAME
 ARG TAG
-ARG DEPLOYER_TAG
 
 RUN cat /tmp/schema.yaml \
     | env -i "REGISTRY=$REGISTRY" "APP_NAME=$APP_NAME" "TAG=$TAG" envsubst \
@@ -25,7 +24,7 @@ RUN cat /tmp/schema.yaml \
 ADD apptest/deployer/schema.yaml /tmp/apptest/schema.yaml
 
 RUN cat /tmp/apptest/schema.yaml \
-    | env -i "REGISTRY=$REGISTRY" "APP_NAME=$APP_NAME" "TAG=$TAG" "DEPLOYER_TAG=$DEPLOYER_TAG" envsubst \
+    | env -i "REGISTRY=$REGISTRY" "APP_NAME=$APP_NAME" "TAG=$TAG" envsubst \
     > /tmp/apptest/schema.yaml.new \
     && mv /tmp/apptest/schema.yaml.new /tmp/apptest/schema.yaml
 

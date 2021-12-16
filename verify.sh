@@ -7,7 +7,7 @@ MARKETPLACE_TOOLS_TAG=$(<MARKETPLACE_TOOLS_TAG xargs)
 REGISTRY=gcr.io/instana-public
 
 DEPLOYER_TAG=$(<DEPLOYER_TAG xargs)
-TAG=latest
+TAG="${DEPLOYER_TAG}.$(<PATCH_VERSION xargs)"
 APP_NAME=instana-agent
 
 
@@ -23,7 +23,7 @@ docker build \
 docker push "$REGISTRY"/$APP_NAME/deployer:"$DEPLOYER_TAG"
 
 # build and push new tester
-docker build --tag "$REGISTRY"/$APP_NAME/tester:"$DEPLOYER_TAG" apptest/tester
-docker push "$REGISTRY"/$APP_NAME/tester:"$DEPLOYER_TAG"
+docker build --tag "$REGISTRY"/$APP_NAME/tester:"$TAG" apptest/tester
+docker push "$REGISTRY"/$APP_NAME/tester:"$TAG"
 
 mpdev verify --deployer="$REGISTRY"/$APP_NAME/deployer:"$DEPLOYER_TAG"
