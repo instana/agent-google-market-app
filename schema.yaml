@@ -12,15 +12,11 @@ x-google-marketplace:
     '':
       properties:
         agent.image.name:
-          type: REPO_WITHOUT_REGISTRY
-        agent.image.tag:
-          type: TAG
-    leaderElector:
+          type: FULL
+    leader-elector:
       properties:
         leaderElector.image.name:
-          type: REPO_WITHOUT_REGISTRY
-        leaderElector.image.tag:
-          type: TAG
+          type: FULL
 
   clusterConstraints:
     resources:

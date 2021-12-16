@@ -13,12 +13,13 @@ APP_NAME=instana-agent
 
 # build and push new deployer
 docker build \
---build-arg REGISTRY="$REGISTRY" \
---build-arg APP_NAME=$APP_NAME \
---build-arg TAG=$TAG \
---build-arg MARKETPLACE_TOOLS_TAG="$MARKETPLACE_TOOLS_TAG" \
---build-arg DEPLOYER_TAG="$DEPLOYER_TAG" \
---tag "$REGISTRY"/$APP_NAME/deployer:"$DEPLOYER_TAG" .
+  --build-arg REGISTRY="$REGISTRY" \
+  --build-arg APP_NAME=$APP_NAME \
+  --build-arg TAG=$TAG \
+  --build-arg MARKETPLACE_TOOLS_TAG="$MARKETPLACE_TOOLS_TAG" \
+  --build-arg DEPLOYER_TAG="$DEPLOYER_TAG" \
+  --file deployer/Dockerfile \
+  --tag "$REGISTRY"/$APP_NAME/deployer:"$DEPLOYER_TAG" .
 docker push "$REGISTRY"/$APP_NAME/deployer:"$DEPLOYER_TAG"
 
 # build and push new tester
