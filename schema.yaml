@@ -6,6 +6,7 @@ x-google-marketplace:
     releaseNote: >-
       - Migrate v1 Schema to v2
       - Update Chart to use the latest release
+      - Update images
   images:
     '':
       properties:
