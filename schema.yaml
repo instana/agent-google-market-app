@@ -125,7 +125,7 @@ properties:
     type: string
     title: Instana Zone Name
     description: Custom zone that detected technologies will be assigned to
-  serviceAccountMP:
+  agent.serviceAccount:
     type: string
     title: Cluster Admin Service Account
     description: >-

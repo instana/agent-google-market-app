@@ -37,7 +37,9 @@ The name of the ServiceAccount used.
 {{- define "instana-agent.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
     {{ default (include "instana-agent.fullname" .) .Values.serviceAccount.name }}
-{{- else -}}
+{{- else if .Values.agent.serviceAccount -}}
+    {{ .Values.agent.serviceAccount }}
+{{- else }}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
