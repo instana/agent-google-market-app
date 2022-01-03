@@ -11,7 +11,7 @@ metadata:
 spec:
   descriptor:
     type: instana-agent
-    version: '1.8.1'
+    version: '1.8.2'
     maintainers:
       - name: Instana
         url: https://www.instana.com
