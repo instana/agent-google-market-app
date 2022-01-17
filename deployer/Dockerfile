@@ -7,7 +7,6 @@ ADD chart/instana-agent /tmp/chart
 
 RUN cd /tmp && tar -czvf /tmp/instana-agent.tar.gz chart
 
-# This should be uncommented when tests will be implemented
 ADD apptest/deployer/instana-agent /tmp/test/chart
 RUN cd /tmp/test && tar -czvf /tmp/test/instana-agent.tar.gz chart/
 
@@ -32,7 +31,6 @@ RUN cat /tmp/apptest/schema.yaml \
 # Using GCP Marketplace HELM deployer
 FROM gcr.io/cloud-marketplace-tools/k8s/deployer_helm
 COPY --from=build /tmp/instana-agent.tar.gz /data/chart/
-# this should be uncommented when tests will be implemented
 COPY --from=build /tmp/test/instana-agent.tar.gz /data-test/chart/
 COPY --from=build /tmp/apptest/schema.yaml /data-test/
 COPY --from=build /tmp/schema.yaml /data/

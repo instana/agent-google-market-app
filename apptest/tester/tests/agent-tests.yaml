@@ -1,0 +1,16 @@
+actions:
+  - name: kubectl test
+    bashTest:
+      script: kubectl version
+      expect:
+        exitCode:
+          equals: 0
+  - name: Check that the Instana Agent Key secret has been created
+    bashTest:
+      script: |-
+        key=$(kubectl get secret "{{ .Env.APP_INSTANCE_NAME }}-instana-agent" --namespace "{{ .Env.NAMESPACE }}" -o jsonpath="{.data.key}" | base64 --decode)
+        [[ $key == 'dummyAgentKey' ]] && exit 0 || exit 1
+      expect:
+        exitCode:
+          equals: 0
+
