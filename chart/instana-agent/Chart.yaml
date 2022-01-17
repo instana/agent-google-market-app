@@ -12,8 +12,8 @@ icon: https://agents.instana.io/helm/stan-logo-2020.png
 maintainers:
 - email: henning.treu@ibm.com
   name: htreu
-- email: m.donkers@ibm.com
-  name: mdonkers
+- email: felix.marx@ibm.com
+  name: FelixMarxIBM
 - email: torsten.kohn@ibm.com
   name: tkohn
 name: instana-agent

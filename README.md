@@ -20,7 +20,7 @@ docker-credential-gcr configure-docker
 ## Rules
 
 We are creating an app with building blocks from our existing helm chart. 
-There are rules different rules for Helm chart and Google market app. 
+There are different rules for Helm chart and Google market app. 
 While helm recommends RBAC and SA, that is forbidden with Google Marketplace App. 
 ClusterRole, ClusterRoleBinding and ServiceAccount are defined in `schema.yaml`.
 
