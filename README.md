@@ -35,13 +35,9 @@ ClusterRole, ClusterRoleBinding and ServiceAccount are defined in `schema.yaml`.
 - agent.endpointPort | default "443"
 ```
 
-## Test & Upload
+## Pre-Relase new version
 
-This will upload deployer and tester image to the registry.
+This will upload all needed image to the registry with the correct tags.
 The GCP Marketplace will copy these images to the Marketplace registry after a new App is releases.
 
-To test your changes, run:
-
-```
-./verify.sh
-```
+Use the `pre-release.sh` script to update the images.

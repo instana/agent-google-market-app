@@ -4,9 +4,8 @@ x-google-marketplace:
   publishedVersion: "$TAG"
   publishedVersionMetadata:
     releaseNote: >-
-      - Migrate v1 Schema to v2
-      - Update Chart to use the latest release
-      - Update images
+      - Update base image
+      - Make zone.name a mandatory field
   images:
     '':
       properties:
@@ -30,8 +29,17 @@ required:
   - agent.endpointPort
   - name
   - namespace
+  - zone.name
 
 properties:
+  agent.key:
+    type: string
+    title: Instana Agent Key
+    description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
+  zone.name:
+    type: string
+    title: Instana Zone Name
+    description: Custom zone that detected technologies will be assigned to
   name:
     type: string
     default: "$APP_NAME"
@@ -53,10 +61,6 @@ properties:
     type: string
     title: Instana Agent backend endpoint port
     default: "443"
-  agent.key:
-    type: string
-    title: Instana Agent Key
-    description: "Your Instana Agent key is the secret token which your agent uses to authenticate to Instana's servers"
   agent.tls.secretName:
     type: string
     title: Name of the secret of type kubernetes.io/tls (Optional)
@@ -122,10 +126,6 @@ properties:
     type: string
     title: Display name of the monitored cluster (Optional)
     description: The optional name that will be assigned to this cluster in Instana. See https://github.com/helm/charts/tree/master/stable/instana-agent#installing-the-chart for more details
-  zone.name:
-    type: string
-    title: Instana Zone Name
-    description: Custom zone that detected technologies will be assigned to
   agent.serviceAccount:
     type: string
     title: Cluster Admin Service Account
