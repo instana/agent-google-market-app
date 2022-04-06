@@ -38,7 +38,7 @@ docker image tag "$REGISTRY/$APP_NAME/tester:$VERSION" "$REGISTRY/$APP_NAME/test
 docker image push --all-tags "$REGISTRY/$APP_NAME/tester"
 
 # update leader-elector image
-LEADER_ELECTOR_SRC="gcr.io/instana-public/leader-elector:$LEADER_ELECTOR_VERSION"
+LEADER_ELECTOR_SRC="icr.io/instana/leader-elector:$LEADER_ELECTOR_VERSION"
 LEADER_ELECTOR_DST="gcr.io/instana-public/instana-agent/leader-elector"
 docker pull "$LEADER_ELECTOR_SRC"
 docker image tag "$LEADER_ELECTOR_SRC" "$LEADER_ELECTOR_DST:$LEADER_ELECTOR_VERSION"
@@ -53,6 +53,9 @@ docker pull "$AGENT_SRC"
 docker image tag "$AGENT_SRC" "$AGENT_DST:$VERSION"
 docker image tag "$AGENT_SRC" "$AGENT_DST:$DEPLOYER_TAG"
 docker image push --all-tags "$AGENT_DST"
+
+# Tool Prerequisites https://github.com/GoogleCloudPlatform/marketplace-k8s-app-tools/blob/master/docs/tool-prerequisites.md
+kubectl apply -f "https://raw.githubusercontent.com/GoogleCloudPlatform/marketplace-k8s-app-tools/master/crd/app-crd.yaml"
 
 # verify new pre-release
 mpdev verify --deployer="$REGISTRY/$APP_NAME/deployer:$DEPLOYER_TAG"
